@@ -5,7 +5,7 @@ import java.util.Arrays;
  */
 public class ArrayStorage {
     Resume[] storage = new Resume[10000];
-    int size = -1;
+    int size = 0;
 
     void clear() {
         Arrays.fill(storage, 0, size, null);
@@ -13,7 +13,9 @@ public class ArrayStorage {
     }
 
     void save(Resume newResume) {
-        size++;
+        if (size != 0) {
+            size++;
+        }
         storage[size] = newResume;
     }
 
@@ -32,6 +34,7 @@ public class ArrayStorage {
                 storage[i] = storage[size - 1];
                 storage[size - 1] = null;
                 size--;
+                break;
             }
         }
     }
