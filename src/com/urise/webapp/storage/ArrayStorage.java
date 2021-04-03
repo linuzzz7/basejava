@@ -1,21 +1,25 @@
+package com.urise.webapp.storage;
+
+import com.urise.webapp.model.Resume;
+
 import java.util.Arrays;
 
 /**
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    Resume[] storage = new Resume[10000];
-    int size = 0;
-    int checkResumeId;
+    private Resume[] storage = new Resume[10000];
+    private int size = 0;
+    private int checkResumeId;
 
-    void clear() {
+    public void clear() {
         Arrays.fill(storage, 0, size, null);
         size = 0;
     }
 
-    boolean checkResume(String uuid) {
+    public boolean checkResume(String uuid) {
         for (int i = 0; i < size; i++) {
-            if (storage[i].uuid.equals(uuid)) {
+            if (storage[i].getUuid().equals(uuid)) {
                 checkResumeId = i;
                 return true;
             }
@@ -23,11 +27,11 @@ public class ArrayStorage {
         return false;
     }
 
-    void save(Resume newResume) {
+    public void save(Resume newResume) {
         if (size == 10000) {
             System.out.println("База данных резюме заполнена, добавление не возможно");
         } else {
-            if (!checkResume(newResume.uuid)) {
+            if (!checkResume(newResume.getUuid())) {
                 size++;
                 storage[size - 1] = newResume;
             } else {
@@ -36,7 +40,7 @@ public class ArrayStorage {
         }
     }
 
-    Resume get(String uuid) {
+    public Resume get(String uuid) {
         if (checkResume(uuid)) {
             return storage[checkResumeId];
         } else {
@@ -45,7 +49,7 @@ public class ArrayStorage {
         }
     }
 
-    void delete(String uuid) {
+    public void delete(String uuid) {
         if (checkResume(uuid)) {
             storage[checkResumeId] = storage[size - 1];
             storage[size - 1] = null;
@@ -55,8 +59,8 @@ public class ArrayStorage {
         }
     }
 
-    void update(Resume resume) {
-        if (checkResume(resume.uuid)) {
+    public void update(Resume resume) {
+        if (checkResume(resume.getUuid())) {
             storage[checkResumeId] = resume;
         } else {
             System.out.println("Резюме не найдено, обновление не произведено");
@@ -66,11 +70,11 @@ public class ArrayStorage {
     /**
      * @return array, contains only Resumes in storage (without null)
      */
-    Resume[] getAll() {
+    public Resume[] getAll() {
         return Arrays.copyOf(storage, size);
     }
 
-    int size() {
+    public int size() {
         return size;
     }
 }
