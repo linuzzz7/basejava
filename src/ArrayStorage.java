@@ -6,29 +6,32 @@ import java.util.Arrays;
 public class ArrayStorage {
     Resume[] storage = new Resume[10000];
     int size = 0;
+    int checkResumeId;
 
     void clear() {
         Arrays.fill(storage, 0, size, null);
         size = 0;
     }
 
-    boolean checkResume(Resume newResume) {
+    boolean checkResume(String uuid) {
         for (int i = 0; i < size; i++) {
-            if (storage[i].uuid.equals(newResume.uuid)) {
-                System.out.println("Resume exists");
-                return false;
+            if (storage[i].uuid.equals(uuid)) {
+                checkResumeId = i;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     void save(Resume newResume) {
         if (size == 10000) {
             System.out.println("the base is full");
         } else {
-            if (checkResume(newResume)) {
+            if (!checkResume(newResume.uuid)) {
                 size++;
                 storage[size - 1] = newResume;
+            } else {
+                System.out.println("Resume exists");
             }
         }
     }
@@ -39,24 +42,25 @@ public class ArrayStorage {
                 return storage[i];
             }
         }
+        System.out.println("Resume not found");
         return null;
     }
 
     void delete(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].uuid.equals(uuid)) {
-                storage[i] = storage[size - 1];
-                storage[size - 1] = null;
-                size--;
-            }
+        if (checkResume(uuid)) {
+            storage[checkResumeId] = storage[size - 1];
+            storage[size - 1] = null;
+            size--;
+        } else {
+            System.out.println("Resume not found");
         }
     }
 
     void update(Resume resume) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].uuid.equals(resume.uuid)) {
-                storage[i] = resume;
-            }
+        if (checkResume(resume.uuid)) {
+            storage[checkResumeId] = resume;
+        } else {
+            System.out.println("Resume not found");
         }
     }
 
