@@ -13,10 +13,8 @@ public class ArrayStorage {
     }
 
     void save(Resume newResume) {
-        if (size != 0) {
-            size++;
-        }
-        storage[size] = newResume;
+        size++;
+        storage[size - 1] = newResume;
     }
 
     Resume get(String uuid) {
@@ -34,7 +32,6 @@ public class ArrayStorage {
                 storage[i] = storage[size - 1];
                 storage[size - 1] = null;
                 size--;
-                break;
             }
         }
     }
