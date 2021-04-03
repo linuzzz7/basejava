@@ -12,9 +12,25 @@ public class ArrayStorage {
         size = 0;
     }
 
+    boolean checkResume(Resume newResume) {
+        for (int i = 0; i < size; i++) {
+            if (storage[i].uuid.equals(newResume.uuid)) {
+                System.out.println("Resume exists");
+                return false;
+            }
+        }
+        return true;
+    }
+
     void save(Resume newResume) {
-        size++;
-        storage[size - 1] = newResume;
+        if (size == 10000) {
+            System.out.println("the base is full");
+        } else {
+            if (checkResume(newResume)) {
+                size++;
+                storage[size - 1] = newResume;
+            }
+        }
     }
 
     Resume get(String uuid) {
@@ -32,6 +48,14 @@ public class ArrayStorage {
                 storage[i] = storage[size - 1];
                 storage[size - 1] = null;
                 size--;
+            }
+        }
+    }
+
+    void update(Resume resume) {
+        for (int i = 0; i < size; i++) {
+            if (storage[i].uuid.equals(resume.uuid)) {
+                storage[i] = resume;
             }
         }
     }
