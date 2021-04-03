@@ -25,13 +25,13 @@ public class ArrayStorage {
 
     void save(Resume newResume) {
         if (size == 10000) {
-            System.out.println("the base is full");
+            System.out.println("База данных резюме заполнена, добавление не возможно");
         } else {
             if (!checkResume(newResume.uuid)) {
                 size++;
                 storage[size - 1] = newResume;
             } else {
-                System.out.println("Resume exists");
+                System.out.println("Резюме уже существует");
             }
         }
     }
@@ -42,7 +42,7 @@ public class ArrayStorage {
                 return storage[i];
             }
         }
-        System.out.println("Resume not found");
+        System.out.println("Резюме не найдено");
         return null;
     }
 
@@ -52,7 +52,7 @@ public class ArrayStorage {
             storage[size - 1] = null;
             size--;
         } else {
-            System.out.println("Resume not found");
+            System.out.println("Резюме не найдено, удаление не произведено");
         }
     }
 
@@ -60,7 +60,7 @@ public class ArrayStorage {
         if (checkResume(resume.uuid)) {
             storage[checkResumeId] = resume;
         } else {
-            System.out.println("Resume not found");
+            System.out.println("Резюме не найдено, обновление не произведено");
         }
     }
 
