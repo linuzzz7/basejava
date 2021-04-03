@@ -37,13 +37,12 @@ public class ArrayStorage {
     }
 
     Resume get(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].uuid.equals(uuid)) {
-                return storage[i];
-            }
+        if (checkResume(uuid)) {
+            return storage[checkResumeId];
+        } else {
+            System.out.println("Резюме не найдено");
+            return null;
         }
-        System.out.println("Резюме не найдено");
-        return null;
     }
 
     void delete(String uuid) {
