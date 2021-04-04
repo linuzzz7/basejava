@@ -30,8 +30,8 @@ public class ArrayStorage {
             System.out.println("База данных резюме заполнена, добавление не возможно");
         } else {
             if (checkResume(newResume.getUuid()) == -1) {
+                storage[size] = newResume;
                 size++;
-                storage[size - 1] = newResume;
             } else {
                 System.out.println("Резюме " + newResume.getUuid() + " уже существует");
             }
