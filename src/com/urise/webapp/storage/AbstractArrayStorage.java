@@ -2,8 +2,6 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.model.Resume;
 
-import java.util.Arrays;
-
 /**
  * AbstractArrayStorage класс для работы с Резюме
  *
@@ -27,4 +25,21 @@ public abstract class AbstractArrayStorage implements Storage {
     public int size() {
         return size;
     }
+
+    /**
+     * Метод для поиска резюме, вызывает проверку по uuid
+     * Создаем переменную index, чтобы не бегать кучу раз по массиву резюме
+     *
+     * @return - возвращает найденное резюме
+     */
+    public Resume get(String uuid) {
+        int index = getIndex(uuid);
+        if (index != -1) {
+            return storage[index];
+        }
+        System.out.println("Резюме " + uuid + " не найдено");
+        return null;
+    }
+
+    protected abstract int getIndex(String uuid);
 }

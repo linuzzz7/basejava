@@ -58,20 +58,7 @@ public class ArrayStorage extends AbstractArrayStorage {
         }
     }
 
-    /**
-     * Метод для поиска резюме, вызывает проверку по uuid
-     * Создаем переменную index, чтобы не бегать кучу раз по массиву резюме
-     *
-     * @return - возвращает найденное резюме
-     */
-    public Resume get(String uuid) {
-        int index = getIndex(uuid);
-        if (index != -1) {
-            return storage[index];
-        }
-        System.out.println("Резюме " + uuid + " не найдено");
-        return null;
-    }
+
 
     /**
      * Метод для удаления резюме
@@ -104,7 +91,7 @@ public class ArrayStorage extends AbstractArrayStorage {
      * @return - возвращает найденный index в массиве резюме,
      * если не найдено возвращает -1
      */
-    private int getIndex(String uuid) {
+    protected int getIndex(String uuid) {
         for (int index = 0; index < size; index++) {
             if (storage[index].getUuid().equals(uuid)) {
                 return index;
