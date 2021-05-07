@@ -5,10 +5,13 @@ import com.urise.webapp.storage.ArrayStorage;
 import com.urise.webapp.storage.Storage;
 
 /**
- * Test for your com.urise.webapp.storage.ArrayStorage implementation
+ * Тестовый класс
+ *
+ * @author Zukov Alexander
+ * @version 0.2
  */
 public class MainTestArrayStorage {
-    private static final Storage ARRAY_STORAGE = new ArrayStorage();
+    private final static Storage ARRAY_STORAGE = new ArrayStorage();
 
     public static void main(String[] args) {
         final Resume r1 = new Resume();

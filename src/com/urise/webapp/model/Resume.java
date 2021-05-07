@@ -3,12 +3,25 @@ package com.urise.webapp.model;
 import java.util.Objects;
 
 /**
- * Initial resume class
+ * Инициализация Резюме
+ *
+ * @author Zukov Alexander
+ * @version 0.2
  */
+
 public class Resume {
 
-    // Unique identifier
+    // уникальный идентификатор резюме
     private String uuid;
+
+    /**
+     * Метод возвращает номер Resume
+     *
+     * @return uuid
+     */
+    public String getUuid() {
+        return uuid;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -23,10 +36,9 @@ public class Resume {
         return Objects.hash(uuid);
     }
 
-    public String getUuid() {
-        return uuid;
-    }
-
+    /**
+     * Метод присваивает номер Resume
+     */
     public void setUuid(String uuid) {
         this.uuid = uuid;
     }
@@ -36,5 +48,3 @@ public class Resume {
         return uuid;
     }
 }
-
-//test
