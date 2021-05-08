@@ -28,6 +28,10 @@ public class MainTestArrayStorage {
         printAll();
         ARRAY_STORAGE.delete(r1.getUuid());
         printAll();
+        //testing update method
+        r2.setUuid("uuid4_update");
+        ARRAY_STORAGE.update(r2);
+        printAll();
         ARRAY_STORAGE.clear();
         printAll();
 
