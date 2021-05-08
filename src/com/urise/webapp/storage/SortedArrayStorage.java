@@ -4,39 +4,33 @@ import com.urise.webapp.model.Resume;
 
 import java.util.Arrays;
 
-public class SortedArrayStorage extends AbstractArrayStorage{
+public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
-    public void clear() {
-
+    protected void removeElementArray(int index) {
+        int elementsMoved = size - index - 1;
+        if (elementsMoved > 0) {
+            System.arraycopy(storage, index + 1, storage, index, elementsMoved);
+        }
     }
 
     @Override
-    public void update(Resume resume) {
-
-    }
-
-    @Override
-    public void save(Resume newResume) {
-
-    }
-
-    @Override
-    public void delete(String uuid) {
-
-    }
-
-    @Override
-    public Resume[] getAll() {
-        return new Resume[0];
+    protected void addElementArray(Resume newResume, int index) {
+        int indexAdd = - index - 1;
+        System.arraycopy(storage, indexAdd, storage, indexAdd + 1, size - indexAdd);
+        storage[indexAdd] = newResume;
     }
 
     @Override
     protected int getIndex(String uuid) {
-        // TODO: заглушка, массив должен быть отсортирован!
-        // создаем резюме, записываем туда нужный uuid и уже его сравниваем
+        // создаем резюме, записываем туда нужный uuid и уже его ищем
         Resume searchKey = new Resume();
         searchKey.setUuid(uuid);
+        /*
+         * Метод Arrays.binarySearch() возвращает позицию заданного значения.
+         * Если искомый элемент не найден, то возвращается - (position + 1), и минус впереди,
+         * где position - позиция элемента где он МОГ БЫ БЫТЬ.
+         */
         return Arrays.binarySearch(storage, 0, size, searchKey);
     }
 }

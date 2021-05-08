@@ -2,19 +2,13 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.model.Resume;
 
-/**
- * Storage интерфейс для работы с Резюме и методы работы с ним
- *
- * @author Zukov Alexander
- * @version 0.2
- */
-public interface Storage {
+public interface IStorage {
 
     void clear();
 
     void update(Resume resume);
 
-    void save(Resume newResume);
+    void save(Resume Resume);
 
     Resume get(String uuid);
 
