@@ -24,8 +24,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     @Override
     protected int getIndex(String uuid) {
         // создаем резюме, записываем туда нужный uuid и уже его ищем
-        Resume searchKey = new Resume();
-        searchKey.setUuid(uuid);
+        Resume searchKey = new Resume(uuid);
         /*
          * Метод Arrays.binarySearch() возвращает позицию заданного значения.
          * Если искомый элемент не найден, то возвращается - (position + 1), и минус впереди,

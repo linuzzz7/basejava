@@ -1,5 +1,8 @@
 package com.urise.webapp.storage;
 
+import com.urise.webapp.exception.ExistStorageException;
+import com.urise.webapp.exception.NotExistStorageException;
+import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
 
 import java.util.Arrays;
@@ -21,8 +24,8 @@ public abstract class AbstractArrayStorage implements IStorage {
 
     public void update(Resume resume) {
         int index = getIndex(resume.getUuid());
-        if (index < 0) {
-            System.out.println("Резюме " + resume.getUuid() + " не найдено, обновление не произведено");
+        if (index == -1) {
+            throw new NotExistStorageException("Резюме " + resume.getUuid() + " не найдено, обновление не произведено");
         } else {
             storage[index] = resume;
         }
@@ -35,9 +38,9 @@ public abstract class AbstractArrayStorage implements IStorage {
     public void save(Resume Resume) {
         int index = getIndex(Resume.getUuid());
         if (index >= 0) {
-            System.out.println("Резюме " + Resume.getUuid() + " уже существует");
+            throw new ExistStorageException("Резюме " + Resume.getUuid() + " уже существует");
         } else if (size == STORAGE_LIMIT) {
-            System.out.println("База данных резюме заполнена, добавление не возможно");
+            throw new StorageException("База данных резюме заполнена, добавление не возможно", Resume.getUuid());
         } else {
             addElementArray(Resume, index);
             size++;
@@ -47,7 +50,7 @@ public abstract class AbstractArrayStorage implements IStorage {
     public void delete(String uuid) {
         int index = getIndex(uuid);
         if (index < 0) {
-            System.out.println("Резюме " + uuid + " не найдено, удаление не произведено");
+            throw new NotExistStorageException("Резюме " + uuid + " не найдено");
         } else {
             removeElementArray(index);
             storage[size - 1] = null;
@@ -63,8 +66,7 @@ public abstract class AbstractArrayStorage implements IStorage {
     public Resume get(String uuid) {
         int index = getIndex(uuid);
         if (index < 0) {
-            System.out.println("Резюме " + uuid + " не найдено");
-            return null;
+            throw new NotExistStorageException("Резюме " + uuid + " не найдено");
         }
         return storage[index];
     }
